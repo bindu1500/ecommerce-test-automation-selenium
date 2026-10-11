@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+{% for e in errors %}<div class="msg error" data-testid="checkout-error">{{ e }}</div>{% endfor %}
+<div class="card">
+  <p>Order total: <strong data-testid="checkout-total">{{ total|money }}</strong></p>
+  <form method="post">
+    <p><input id="full_name" name="full_name" placeholder="Full name"></p>
+    <p><input id="address" name="address" placeholder="Street address" style="width:60%"></p>
+    <p><input id="zip" name="zip" placeholder="ZIP code"></p>
+    <button id="place-order" type="submit">Place order</button>
+  </form>
+</div>
+{% endblock %}

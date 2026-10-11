@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Order history</h2>
+{% if not orders %}<p data-testid="no-orders">You have no orders yet</p>{% endif %}
+<table class="card">
+  {% for o in orders %}
+  <tr data-testid="order-row" data-order-id="{{ o.id }}">
+    <td>#{{ o.id }}</td><td>{{ o.created_at }}</td><td>{{ o.status }}</td>
+    <td data-testid="order-total">{{ o.total_cents|money }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

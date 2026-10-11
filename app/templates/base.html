@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ShopLite</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f6f7f9; color: #1d2330; }
+    header { background: #1d2330; color: #fff; padding: 12px 24px; display: flex; gap: 20px; align-items: center; }
+    header a { color: #fff; text-decoration: none; }
+    header .brand { font-weight: 700; margin-right: auto; }
+    main { max-width: 960px; margin: 24px auto; padding: 0 16px; }
+    .card { background: #fff; border: 1px solid #e3e6ea; border-radius: 8px; padding: 16px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px; }
+    .msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; background: #e8f1ff; }
+    .error { background: #fde8e8; color: #9b1c1c; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: 8px; border-bottom: 1px solid #e3e6ea; text-align: left; }
+    input, button { padding: 8px; font-size: 14px; }
+    button { background: #2563eb; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+    button:disabled { background: #9ca3af; }
+  </style>
+</head>
+<body>
+<header>
+  <span class="brand">ShopLite</span>
+  {% if session.user_id %}
+    <a href="{{ url_for('products') }}" data-testid="nav-products">Products</a>
+    <a href="{{ url_for('cart') }}" data-testid="nav-cart">Cart (<span data-testid="cart-count">{{ session.get('cart', {}).values()|sum }}</span>)</a>
+    <a href="{{ url_for('orders') }}" data-testid="nav-orders">Orders</a>
+    <span data-testid="welcome">Hi, {{ session.user_name }}</span>
+    <a href="{{ url_for('logout') }}" data-testid="nav-logout">Logout</a>
+  {% endif %}
+</header>
+<main>
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your cart</h2>
+{% if message %}<div class="msg" data-testid="flash">{{ message }}</div>{% endif %}
+{% if not items %}
+  <p data-testid="empty-cart">Your cart is empty</p>
+{% else %}
+<div class="card">
+  <table>
+    <tr><th>Product</th><th>Qty</th><th>Price</th><th>Line total</th><th></th></tr>
+    {% for it in items %}
+    <tr data-testid="cart-row" data-sku="{{ it.product.sku }}">
+      <td data-testid="row-name">{{ it.product.name }}</td>
+      <td data-testid="row-qty">{{ it.qty }}</td>
+      <td>{{ it.product.price_cents|money }}</td>
+      <td data-testid="row-total">{{ it.line|money }}</td>
+      <td><form method="post" action="{{ url_for('remove_from_cart', pid=it.product.id) }}">
+        <button type="submit" data-testid="remove-item">Remove</button></form></td>
+    </tr>
+    {% endfor %}
+  </table>
+  <form method="post" action="{{ url_for('apply_coupon') }}" style="margin-top:16px">
+    <input id="coupon" name="code" placeholder="Coupon code">
+    <button id="apply-coupon" type="submit">Apply</button>
+  </form>
+  <p>Subtotal: <strong data-testid="subtotal">{{ subtotal|money }}</strong></p>
+  <p>Discount: <strong data-testid="discount">{{ discount|money }}</strong>{% if coupon %} ({{ coupon }}){% endif %}</p>
+  <p>Total: <strong data-testid="total">{{ total|money }}</strong></p>
+  <a href="{{ url_for('checkout') }}"><button id="checkout-btn" type="button">Checkout</button></a>
+</div>
+{% endif %}
+{% endblock %}

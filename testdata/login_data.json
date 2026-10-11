@@ -1,0 +1,10 @@
+{
+  "invalid_logins": [
+    {"id": "wrong-password",  "email": "alice@shoplite.test",  "password": "wrong",     "error": "Invalid email or password"},
+    {"id": "unknown-user",    "email": "nobody@shoplite.test", "password": "Passw0rd!", "error": "Invalid email or password"},
+    {"id": "locked-account",  "email": "locked@shoplite.test", "password": "Passw0rd!", "error": "Your account is locked. Contact support."},
+    {"id": "empty-password",  "email": "alice@shoplite.test",  "password": "",          "error": "Email and password are required"},
+    {"id": "empty-email",     "email": "",                     "password": "Passw0rd!", "error": "Email and password are required"},
+    {"id": "sql-injection",   "email": "' OR '1'='1",          "password": "' OR '1'='1", "error": "Invalid email or password"}
+  ]
+}
